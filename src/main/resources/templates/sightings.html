@@ -131,6 +131,14 @@
                 <td>
                   <a
                     href="#"
+                    th:href="@{/sightingDetail(id=${sighting.id})}"
+                    class="btn btn-info"
+                    >Details</a
+                  >
+                </td>
+                <td>
+                  <a
+                    href="#"
                     th:href="@{/editSighting(id=${sighting.id})}"
                     class="btn btn-secondary"
                     >Edit</a
