@@ -93,7 +93,7 @@
                 <td th:text="${superpower.id}">Superpower ID</td>
                 <td th:text="${superpower.name}">Superpower Name</td>
                 <td>
-                  <a href="#" class="btn btn-secondary">Edit</a>
+                  <a href="#" th:href="@{/editSuperpower(id=${superpower.id})}" class="btn btn-secondary">Edit</a>
                 </td>
                 <td>
                   <a

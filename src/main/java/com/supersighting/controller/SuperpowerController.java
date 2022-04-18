@@ -61,21 +61,20 @@ public class SuperpowerController {
     }
 
     @GetMapping("editSuperpower")
-    public String editSuperpower(Integer id, Model model) {
+    public String editSuperpower(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
         Superpower superpower = superpowerDao.getSuperpowerById(id);
         model.addAttribute("superpower", superpower);
+
         return "editSuperpower";
     }
 
     @PostMapping("editSuperpower")
-    public String performEditSuperpower(@Valid Superpower superpower, BindingResult result) {
-        
-        if (result.hasErrors()) {
-            return "editSuperpower";
-        }
-
+    public String performEditSuperpower(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Superpower superpower = superpowerDao.getSuperpowerById(id);
+        superpower.setName(request.getParameter("name"));
         superpowerDao.updateSuperpower(superpower);
         return "redirect:/superpowers";
     }
-
 }

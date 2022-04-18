@@ -62,13 +62,23 @@ public class LocationController {
 
 
     @GetMapping("editLocation")
-    public String editHero(Integer id, Model model) {
+    public String editLocation(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
         Location location = locationDao.getLocationById(id);
         model.addAttribute("location", location);
-
         return "editLocation";
     }
 
-    
+    @PostMapping("editLocation")
+    public String performEditTeacher(HttpServletRequest request){
+        int id = Integer.parseInt(request.getParameter("id"));
+        Location location = locationDao.getLocationById(id);
+        location.setName(request.getParameter("name"));
+        location.setAddress(request.getParameter("address"));
+        location.setLongitude(Double.parseDouble(request.getParameter("longitude")));
+        location.setLatitude(Double.parseDouble(request.getParameter("latitude")));
 
+        locationDao.updateLocation(location);
+        return "redirect:/locations";
+    }
 }

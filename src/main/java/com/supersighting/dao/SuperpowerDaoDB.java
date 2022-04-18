@@ -56,7 +56,7 @@ public class SuperpowerDaoDB implements SuperpowerDao {
 
     @Override
     public void updateSuperpower(Superpower superpower) {
-        final String UPDATE_SUPERPOWER = "UPDATE superpower SET name = ? WHERE id = ?";
+        final String UPDATE_SUPERPOWER = "UPDATE superpower SET superpowerName = ? WHERE superpowerId = ?";
         jdbc.update(UPDATE_SUPERPOWER, superpower.getName(), superpower.getId());
     }
 
