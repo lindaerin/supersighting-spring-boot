@@ -25,7 +25,7 @@ public class SuperpowerDaoDB implements SuperpowerDao {
 
         try {
             
-            final String SELECT_SUPERPOWER_BY_ID = "SELECT * FROM superpower WHERE id = ?";
+            final String SELECT_SUPERPOWER_BY_ID = "SELECT * FROM superpower WHERE superpowerId = ?";
             return jdbc.queryForObject(SELECT_SUPERPOWER_BY_ID, new SuperpowerMapper(), id);
 
         } catch (DataAccessException e) {

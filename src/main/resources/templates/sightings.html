@@ -58,114 +58,89 @@
 
       <div class="row m-4 border border-dark">
         <div class="col-3 text-center m-3">
-          <span class="h3">Add Location</span>
+          <span class="h3">Add Sighting</span>
         </div>
         <div class="col-7 text-center m-3">
-          <form action="addLocation" method="POST">
+          <form action="addSighting" method="POST">
             <div class="form-group row">
-              <label for="name" class="col-3 col-form-label"> Name</label>
+              <label for="date" class="col-3 col-form-label"> Date</label>
               <div class="col-9">
-                <input type="text" name="name" id="name" class="form-control" />
+                <input
+                  type="date"
+                  name="dateString"
+                  id="date"
+                  class="form-control"
+                />
               </div>
             </div>
 
             <div class="form-group row">
-              <label for="description" class="col-3 col-form-label">
-                Description</label
+              <label for="hero" class="col-3 col-form-label"> Hero</label>
+              <div class="col-9">
+                <select id="hero" name="heroId" class="form-control">
+                  <option
+                    th:each="hero : ${heroes}"
+                    th:value="${hero.id}"
+                    th:text="${hero.name}"
+                  >
+                    Hero
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="location" class="col-3 col-form-label">
+                Location</label
               >
               <div class="col-9">
-                <input
-                  type="text"
-                  name="description"
-                  id="description"
-                  class="form-control"
-                />
+                <select id="location" name="locationId" class="form-control">
+                  <option
+                    th:each="location : ${locations}"
+                    th:value="${location.id}"
+                    th:text="${location.name}"
+                  >
+                    Location
+                  </option>
+                </select>
               </div>
             </div>
 
-            <div class="form-group row">
-              <label for="address" class="col-3 col-form-label"> Address</label>
-              <div class="col-9">
-                <input
-                  type="text"
-                  name="address"
-                  id="address"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="latitude" class="col-3 col-form-label">
-                Latitude</label
-              >
-              <div class="col-9">
-                <input
-                  type="text"
-                  name="latitude"
-                  id="latitude"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="longitude" class="col-3 col-form-label">
-                Longitude</label
-              >
-              <div class="col-9">
-                <input
-                  type="text"
-                  name="longitude"
-                  id="longitude"
-                  class="form-control"
-                />
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Add Location</button>
+            <button type="submit" class="btn btn-primary">Add Sighting</button>
           </form>
         </div>
       </div>
+
       <div class="row m-4 border border-dark">
         <div class="col text-center m-3">
           <table class="table table-striped">
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Details</th>
+                <th>Date</th>
+                <th>Hero</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="location : ${locations}">
-                <td th:text="${location.id}">Location ID</td>
-                <td th:text="${location.name}">Location Name</td>
-                <td th:text="${location.address}">Location Address</td>
+              <tr th:each="sighting : ${sightings}">
+                <td th:text="${sighting.id}">Sighting ID</td>
+                <td th:text="${sighting.date}">Date</td>
+                <td th:text="${sighting.hero.name}">Hero Name</td>
                 <td>
                   <a
                     href="#"
-                    class="btn btn-info"
-                    th:href="@{/locationDetail(id=${location.id})}"
-                    >Details</a
-                  >
-                </td>
-                <td>
-                  <a
-                    href="#"
+                    th:href="@{/editSighting(id=${sighting.id})}"
                     class="btn btn-secondary"
-                    th:href="@{/editLocation(id=${location.id})}"
                     >Edit</a
                   >
                 </td>
                 <td>
                   <a
                     href="#"
+                    th:href="@{/deleteSighting(id=${sighting.id})}"
                     class="btn btn-danger"
-                    th:href="@{/deleteLocation(id=${location.id})}"
                     >Delete</a
                   >
                 </td>

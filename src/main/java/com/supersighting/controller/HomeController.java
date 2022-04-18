@@ -22,4 +22,5 @@ public class HomeController {
         model.addAttribute("recentSightings", lastTenSightings);
         return "home.html";
     }
+    
 }

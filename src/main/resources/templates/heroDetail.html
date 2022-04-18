@@ -20,7 +20,7 @@
   </head>
   <body>
     <!-- Main Body of Page -->
-
+    <!-- NAV STARTS HERE -->
     <div class="container">
       <div class="row m-4">
         <div class="col text-center border border-dark">
@@ -51,20 +51,49 @@
             >Locations</a
           >
         </div>
+        <!-- NAV ENDS HERE -->
 
         <!-- DETAILS START HERE -->
-        
+
         <div class="row m-4 border border-dark">
-            
             <div class="col-6 text-right"><strong>ID</strong></div>
             <div class="col-6 text-left">
                 <span th:text="${hero.id}">display id</span>
             </div>
-        
-        </div>
-        <!-- DETAILS END HERE -->
 
-      
+            <div class="col-6 text-right"><strong>Superpower</strong></div>
+            <div class="col-6 text-left">
+                <span th:text="${hero.superpower.name}">display superpower</span>
+            </div>
+
+
+            <div class="col-6 text-right"><strong>Description</strong></div>
+            <div class="col-6 text-left">
+                <span th:text="${hero.description}">display description</span>
+            </div> 
+
+            <div class="col-6 text-right"><strong>Organization</strong></div>
+
+            <div class="col-6 text-left">
+            <span th:each="organization : ${hero.organizations}">
+              <span th:text="${organization.name}"> display organization</span
+              ><br />
+            </span>
+          </div>
+        </div>
+
+          
+
+          <!-- <div class="col-6 text-left">
+            <span th:each="organization : ${hero.organizations}">
+              <span th:text="${organization.name}"> display organization</span
+              ><br />
+            </span>
+          </div> -->
+        <!-- </div> -->
+
+        <!-- DETAILS END HERE -->
+        
     </div>
 
     <!-- End main body -->

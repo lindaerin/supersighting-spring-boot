@@ -14,7 +14,7 @@ CREATE TABLE hero(
     heroName VARCHAR(50) NOT NULL,
     heroDescription VARCHAR(200),
     superpowerId INT NOT NULL,
-    FOREIGN KEY(superpowerId) REFERENCES superpower(superpowerid)
+    FOREIGN KEY(superpowerId) REFERENCES superpower(superpowerId)
 );
 
 CREATE TABLE location(
@@ -28,9 +28,9 @@ CREATE TABLE location(
 
 CREATE TABLE sighting(
 	sightingId INT PRIMARY KEY AUTO_INCREMENT,
-    sightingDate DATETIME NULL,
-    heroId INT NOT NULL,
+    sightingDate DATE NULL,
     locationId INT NOT NULL,
+    heroId INT NOT NULL,
     FOREIGN KEY(heroId) REFERENCES hero(heroId),
     FOREIGN KEY(locationId) REFERENCES location(locationId)
 );
@@ -51,6 +51,19 @@ CREATE TABLE hero_organization(
 );
 
 INSERT INTO superpower(superpowerName) VALUES('Teleport');
+INSERT INTO superpower(superpowerName) VALUES('Fly');
+
 INSERT INTO hero(heroName, heroDescription, superpowerId) VALUES('Wanda', 'Vison', 1);
+INSERT INTO hero(heroName, heroDescription, superpowerId) VALUES('Iron Man', 'Test', 2);
+
 INSERT INTO organization(organizationName, organizationDescription, organizationAddress) VALUES('Blank HQ', 'Looking for hires', 'Some place anywhere');
+INSERT INTO organization(organizationName, organizationDescription, organizationAddress) VALUES('Wonka Bar', 'Looking for hires', 'Test place');
+
 INSERT INTO hero_organization(heroId, organizationId) VALUES(1, 1);
+INSERT INTO hero_organization(heroId, organizationId) VALUES(2, 2);
+
+INSERT INTO location(locationName, description, address, longitude, latitude) VALUES("Starbucks", "Some Test", "Madison Street NY", "98.3", "76.3");
+
+INSERT INTO sighting(sightingDate, locationId, heroId) VALUES("2021-01-12", 1, 2);
+INSERT INTO sighting(sightingDate, locationId, heroId) VALUES("2022-03-22", 1, 1);
+

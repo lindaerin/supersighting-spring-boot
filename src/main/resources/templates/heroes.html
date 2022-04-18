@@ -23,20 +23,26 @@
       <a href="heroes" class="btn btn-outline-primary btn-lg">Heroes</a>
     </div>
     <div class="col text-center m-3">
-      <a href="sightings" class="btn btn-outline-primary btn-lg">Sightings</a>
+      <a href="superpowers" class="btn btn-outline-primary btn-lg"
+        >Superpowers</a
+      >
     </div>
     <div class="col text-center m-3">
-      <a href="superpowers" class="btn btn-outline-primary btn-lg">Superpowers</a>
+      <a href="organizations" class="btn btn-outline-primary btn-lg"
+        >Organizations</a
+      >
     </div>
     <div class="col text-center m-3">
-      <a href="organizations" class="btn btn-outline-primary btn-lg">Organizations</a>
+      <a href="sightings" class="btn btn-outline-primary btn-lg"
+        >Sightings</a
+      >
     </div>
     <div class="col text-center m-3">
-      <a href="locations" class="btn btn-outline-primary btn-lg">Locations</a>
+      <a href="locations" class="btn btn-outline-primary btn-lg"
+        >Locations</a
+      >
     </div>
-
   </div>
-  <!--NAV-->
 
   <div class="row m-4 border border-dark">
 
@@ -63,7 +69,6 @@
           <div class="col-9">
             <input type="text" name="description"
                    id="description" class="form-control"/>
-
           </div>
         </div>
 
@@ -71,7 +76,7 @@
           <label for="superpower" class="col-3 col-form-label">
             Superpower</label>
           <div class="col-9">
-            <select id="superpower" name="superpowerId" class="form-control" >
+            <select id="superpower" name="superpowerId" class="form-control">
               <option th:each="superpower : ${superpowers}"
                       th:value="${superpower.id}"
                       th:text="${superpower.name}"> Superpower</option>

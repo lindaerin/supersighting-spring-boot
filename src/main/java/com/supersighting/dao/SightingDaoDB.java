@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class SightingDaoDB implements SightingDao{
     @Autowired
     JdbcTemplate jdbc;
@@ -37,14 +40,14 @@ public class SightingDaoDB implements SightingDao{
 
 
     private Location getLocationForSighting(int sightingId){
-        final String SELECT_LOCATION_FOR_SIGHTING = "SELECT l.* from sighting st join location l " +
+        final String SELECT_LOCATION_FOR_SIGHTING = "SELECT l.* FROM sighting st join location l " +
                 "ON st.locationId = l.locationId " +
                 "WHERE st.sightingId = ?";
         return jdbc.queryForObject(SELECT_LOCATION_FOR_SIGHTING, new LocationDaoDB.LocationMapper(), sightingId);
     }
 
     private Hero getHeroForSighting(int sightingId){
-        final String SELECT_HERO_FOR_SIGHTING = "SELECT h.* from sighting st join hero h " +
+        final String SELECT_HERO_FOR_SIGHTING = "SELECT h.* FROM sighting st join hero h " +
                 "ON st.heroId = h.heroId " +
                 "WHERE st.sightingId = ?";
         Hero hero = jdbc.queryForObject(SELECT_HERO_FOR_SIGHTING, new HeroDaoDB.HeroMapper(), sightingId);
@@ -55,14 +58,14 @@ public class SightingDaoDB implements SightingDao{
 
 
     private Superpower getSuperpowerForHero(int heroId){
-        final String SELECT_SUPERPOWER_FOR_HERO = "SELECT s.* from hero h join superpower s " +
+        final String SELECT_SUPERPOWER_FOR_HERO = "SELECT s.* FROM hero h join superpower s " +
                 "ON h.superpowerId = s.superpowerId " +
                 "WHERE h.heroId = ?";
         return jdbc.queryForObject(SELECT_SUPERPOWER_FOR_HERO, new SuperpowerDaoDB.SuperpowerMapper(), heroId);
     }
 
     private List<Organization> getOrganizationsForHero(int heroId){
-        final String SELECT_ORGANIZATION_FOR_HERO = "SELECT o.* from hero h " +
+        final String SELECT_ORGANIZATION_FOR_HERO = "SELECT o.* FROM hero h " +
                 "join hero_organization ho " +
                 "on h.heroId = ho.heroId " +
                 "join organization o " +
@@ -84,7 +87,7 @@ public class SightingDaoDB implements SightingDao{
 
     @Override
     public Sighting addSighting(Sighting sighting) {
-        final String INSERT_SIGHTING = "INSERT INTO sighting(date, locationId, heroId) " +
+        final String INSERT_SIGHTING = "INSERT INTO sighting(sightingDate, locationId, heroId) " +
                 "VALUES(?,?,?)";
         jdbc.update(INSERT_SIGHTING,
                 sighting.getDate(),
@@ -99,7 +102,7 @@ public class SightingDaoDB implements SightingDao{
 
     @Override
     public void updateSighting(Sighting sighting) {
-        final String UPDATE_SIGHTING = "UPDATE sighting SET date = ?, locationId = ?, " +
+        final String UPDATE_SIGHTING = "UPDATE sighting SET sightingDate = ?, locationId = ?, " +
                 "heroId = ? WHERE sightingId = ?";
         jdbc.update(UPDATE_SIGHTING,
                 sighting.getDate(),
@@ -116,7 +119,7 @@ public class SightingDaoDB implements SightingDao{
 
     @Override
     public List<Sighting> getSightingsByDate(LocalDate date) {
-        final String GET_SIGHTINGS_BY_DATE = "select * from sighting where date = ?";
+        final String GET_SIGHTINGS_BY_DATE = "select * FROM sighting where sightingDate = ?";
         List<Sighting> sightings = jdbc.query(GET_SIGHTINGS_BY_DATE, new SightingMapper(), date);
         for (Sighting sighting : sightings){
             sighting.setLocation(getLocationForSighting(sighting.getId()));
@@ -128,7 +131,7 @@ public class SightingDaoDB implements SightingDao{
 
     @Override
     public List<Sighting> getLatestSightings() {
-        final String GET_SIGHTINGS_BY_DATE = "select * from sighting order by date desc limit 10";
+        final String GET_SIGHTINGS_BY_DATE = "SELECT * FROM sighting order by sightingDate desc limit 10";
         List<Sighting> sightings = jdbc.query(GET_SIGHTINGS_BY_DATE, new SightingMapper());
         for (Sighting sighting : sightings){
             sighting.setLocation(getLocationForSighting(sighting.getId()));
@@ -143,8 +146,8 @@ public class SightingDaoDB implements SightingDao{
         public Sighting mapRow(ResultSet rs, int index) throws SQLException {
             Sighting sighting = new Sighting();
             sighting.setId(rs.getInt("sightingId"));
-            if (rs.getString("date") != null){
-                sighting.setDate(rs.getDate("date").toLocalDate());
+            if (rs.getString("sightingDate") != null){
+                sighting.setDate(rs.getDate("sightingDate").toLocalDate());
             }
 
             return sighting;
