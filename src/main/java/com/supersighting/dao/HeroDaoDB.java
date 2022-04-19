@@ -118,11 +118,8 @@ public class HeroDaoDB implements HeroDao {
 
     @Override
     public List<Hero> getAllHeroAtSightedLocation(Location location) {
-        final String GET_ALL_HEROES_SIGHTED_AT_LOCATION = "SELECT DISTINCT h.* " +
-                "FROM hero h " +
-                "JOIN sighting st " +
-                "ON h.heroId = st.heroId " +
-                "WHERE st.locationId = ?";
+        final String GET_ALL_HEROES_SIGHTED_AT_LOCATION = "SELECT DISTINCT h.* FROM hero h JOIN sighting sg " +
+                "ON h.heroId = sg.heroId WHERE sg.locationId = ?";
         List<Hero> heroes = jdbc.query(GET_ALL_HEROES_SIGHTED_AT_LOCATION, new HeroMapper(), location.getId());
         for (Hero hero : heroes) {
             hero.setSuperpower(getSuperpowerForHero(hero.getId()));

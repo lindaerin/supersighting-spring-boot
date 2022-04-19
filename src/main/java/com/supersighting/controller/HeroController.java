@@ -42,7 +42,7 @@ public class HeroController {
 
     @GetMapping("heroes")
     public String displayAllSuperpower(Model model) {
-        
+
         List<Hero> heroes = heroDao.getAllHero();
         List<Organization> organizations = organizationDao.getAllOrganizations();
         List<Superpower> superpowers = superpowerDao.getAllSuperpower();
@@ -52,7 +52,7 @@ public class HeroController {
 
         return "heroes";
     }
-    
+
     @PostMapping("addHero")
     public String addHero(Hero hero, BindingResult result, HttpServletRequest request) {
         String superpowerId = request.getParameter("superpowerId");
@@ -62,28 +62,23 @@ public class HeroController {
 
         List<Organization> organizations = new ArrayList<>();
 
-        if(organizationIds != null) {
-            for(String organizationId : organizationIds) {
-                organizations.add(organizationDao.getOrganizationById(Integer.parseInt(organizationId)));
-            }
-        } else {
-            FieldError error = new FieldError("hero", "organizations", "Must include one organization");
-            result.addError(error);
+        for (String organizationId : organizationIds) {
+            organizations.add(organizationDao.getOrganizationById(Integer.parseInt(organizationId)));
         }
+
         hero.setOrganizations(organizations);
 
-        Validator validate = Validation.buildDefaultValidatorFactory().getValidator();
         violations = validate.validate(hero);
-        
-        if(violations.isEmpty()) {
+
+        if (violations.isEmpty()) {
             heroDao.addHero(hero);
-        } 
+        }
 
         return "redirect:/heroes";
     }
 
     @GetMapping("heroDetail")
-    public String heroDetail(Integer id, Model model) { 
+    public String heroDetail(Integer id, Model model) {
         Hero hero = heroDao.getHeroById(id);
         model.addAttribute("hero", hero);
         return "heroDetail";
@@ -107,16 +102,15 @@ public class HeroController {
     }
 
     @PostMapping("editHero")
-    public String performEditHero(@Valid Hero hero, BindingResult result,
-                                    HttpServletRequest request, Model model) {
+    public String performEditHero(@Valid Hero hero, BindingResult result, HttpServletRequest request, Model model) {
         String superpowerId = request.getParameter("superpowerId");
         String[] organizationIds = request.getParameterValues("organizationId");
 
         hero.setSuperpower(superpowerDao.getSuperpowerById(Integer.parseInt(superpowerId)));
 
-        List<Organization> organizations = new ArrayList<>(); 
-        if(organizationIds != null) {
-            for(String organizationId : organizationIds) {
+        List<Organization> organizations = new ArrayList<>();
+        if (organizationIds != null) {
+            for (String organizationId : organizationIds) {
                 organizations.add(organizationDao.getOrganizationById(Integer.parseInt(organizationId)));
             }
         } else {
@@ -126,7 +120,7 @@ public class HeroController {
         }
         hero.setOrganizations(organizations);
 
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             model.addAttribute("superpowers", superpowerDao.getAllSuperpower());
             model.addAttribute("organizations", organizationDao.getAllOrganizations());
             model.addAttribute("hero", hero);
