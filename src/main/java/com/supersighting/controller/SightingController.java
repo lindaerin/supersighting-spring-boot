@@ -71,4 +71,23 @@ public class SightingController {
         return "redirect:/sightings";
     }
 
+    @GetMapping("editSighting")
+    public String editSuperpower(HttpServletRequest request, Model model) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Sighting sighting = sightingDao.getSightingById(id);
+        model.addAttribute("sighting", sighting);
+
+        return "editSuperpower";
+    }
+
+    @PostMapping("editSighting")
+    public String performEditSuperpower(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Sighting sighting = sightingDao.getSightingById(id);
+
+        // update (?)
+        sightingDao.updateSighting(sighting);
+        return "redirect:/sightings";
+    }
+
 }

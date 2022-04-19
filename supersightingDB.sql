@@ -67,3 +67,4 @@ INSERT INTO location(locationName, description, address, longitude, latitude) VA
 INSERT INTO sighting(sightingDate, locationId, heroId) VALUES("2021-01-12", 1, 2);
 INSERT INTO sighting(sightingDate, locationId, heroId) VALUES("2022-03-22", 1, 1);
 
+-- SELECT s.* FROM hero h JOIN superpower s ON h.superpowerId = s.superpowerId WHERE h.heroId = 1;
