@@ -8,7 +8,6 @@ CREATE TABLE superpower(
     superpowerName VARCHAR(50) NOT NULL
 );
 
-
 CREATE TABLE hero(
 	heroId INT PRIMARY KEY AUTO_INCREMENT,
     heroName VARCHAR(50) NOT NULL,
@@ -52,6 +51,7 @@ CREATE TABLE hero_organization(
 
 INSERT INTO superpower(superpowerName) VALUES('Teleport');
 INSERT INTO superpower(superpowerName) VALUES('Fly');
+INSERT INTO superpower(superpowerName) VALUES('Speed');
 
 INSERT INTO hero(heroName, heroDescription, superpowerId) VALUES('Wanda', 'Vison', 1);
 INSERT INTO hero(heroName, heroDescription, superpowerId) VALUES('Iron Man', 'Test', 2);
@@ -68,3 +68,5 @@ INSERT INTO sighting(sightingDate, locationId, heroId) VALUES("2021-01-12", 1, 2
 INSERT INTO sighting(sightingDate, locationId, heroId) VALUES("2022-03-22", 1, 1);
 
 -- SELECT s.* FROM hero h JOIN superpower s ON h.superpowerId = s.superpowerId WHERE h.heroId = 1;
+
+SELECT * FROM hero_organization;

@@ -76,7 +76,7 @@
           <label for="superpower" class="col-3 col-form-label">
             Superpower</label>
           <div class="col-9">
-            <select id="superpower" name="superpowerId" class="form-control">
+            <select id="superpowerId" name="superpowerId" class="form-control">
               <option th:each="superpower : ${superpowers}"
                       th:value="${superpower.id}"
                       th:text="${superpower.name}"> Superpower</option>
@@ -88,7 +88,7 @@
           <label for="organizations" class="col-3 col-form-label">
             Organization(s)</label>
           <div class="col-9">
-            <select multiple id="organization" name="organizationId"
+            <select multiple id="organizationId" name="organizationId"
                     class="form-control">
               <option th:each="organization : ${organizations}"
                       th:value="${organization.id}"
