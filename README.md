@@ -41,6 +41,15 @@ supersighting
  
  ```
 
+## Instructions
+* Configure applciation.properties file to match database information
+
+```
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/"YOUR_DB_FILE"?serverTimezone=America/Chicago&useSSL=false
+spring.datasource.username="user"
+spring.datasource.password="pass" 
+``` 
 
 
 
